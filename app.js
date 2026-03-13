@@ -27,6 +27,12 @@ app.use(
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 
+// Dashboard route
+const isAuthenticated = require("./middleware/auth");
+app.get("/dashboard", isAuthenticated, (req, res) => {
+    res.render("dashboard", { username: req.session.username });
+});
+
 // Test route
 app.get("/", (req, res) => {
     res.send("Job Tracker is running!");
