@@ -23,6 +23,10 @@ app.use(
     }),
 );
 
+// Routes
+const authRoutes = require("./routes/auth");
+app.use("/auth", authRoutes);
+
 // Test route
 app.get("/", (req, res) => {
     res.send("Job Tracker is running!");
