@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Applications | Job Tracker</title>
+        <link rel="stylesheet" href="/css/auth.css" />
+        <link rel="stylesheet" href="/css/applications.css" />
+    </head>
+    <body>
+        <div class="page-container">
+            <div class="page-header">
+                <h1>My Applications</h1>
+                <div class="nav-links">
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/applications/add" class="btn-add">+ Add Application</a>
+                    <a href="/auth/logout">Logout</a>
+                </div>
+            </div>
+
+            <% if (applications.length === 0) { %>
+                <div class="empty-state">
+                    <p>No applications yet.</p>
+                    <a href="/applications/add">Add your first one!</a>
+                </div>
+            <% } else { %>
+                <div class="card-grid">
+                    <% applications.forEach(app => { %>
+                        <div class="job-card">
+                            <h3><%= app.company %></h3>
+                            <p class="position"><%= app.position %></p>
+
+                            <% if (app.job_link) { %>
+                                <a href="<%= app.job_link %>" target="_blank">View Job Post</a>
+                            <% } %>
+
+                            <p class="date">Applied: <%= app.date_applied ? new Date(app.date_applied).toLocaleDateString() : 'N/A' %></p>
+
+                            <span class="status-badge status-<%= app.status %>"><%= app.status %></span>
+
+                            <div class="progress-dots">
+                                <span class="dot <%= ['applied','interview','offer'].includes(app.status) ? 'active' : '' %>"></span>
+                                <span class="dot <%= ['interview','offer'].includes(app.status) ? 'active' : '' %>"></span>
+                                <span class="dot <%= app.status === 'offer' ? 'active' : '' %>"></span>
+                            </div>
+
+                            <div class="card-actions">
+                                <a href="/applications/<%= app.id %>/edit">Edit</a>
+                                <form action="/applications/<%= app.id %>/delete" method="POST">
+                                    <button type="submit" class="btn-delete" onclick="return confirm('Delete this application?')">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } %>
+        </div>
+    </body>
+</html>

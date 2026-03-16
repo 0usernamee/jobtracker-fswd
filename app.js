@@ -27,6 +27,9 @@ app.use(
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 
+const applicationRoutes = require("./routes/applications");
+app.use("/applications", applicationRoutes);
+
 // Dashboard route
 const isAuthenticated = require("./middleware/auth");
 app.get("/dashboard", isAuthenticated, (req, res) => {

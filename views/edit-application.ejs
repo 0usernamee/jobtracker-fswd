@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Edit Application | Job Tracker</title>
+        <link rel="stylesheet" href="/css/auth.css" />
+        <link rel="stylesheet" href="/css/applications.css" />
+    </head>
+    <body>
+        <div class="auth-container">
+            <h1>Edit Application</h1>
+
+            <% if (error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+
+            <form action="/applications/<%= application.id %>/edit" method="POST">
+                <input type="text" name="company" value="<%= application.company %>" required />
+                <input type="text" name="position" value="<%= application.position %>" required />
+                <input type="url" name="job_link" value="<%= application.job_link || '' %>" placeholder="Job Posting URL" />
+                <input type="date" name="date_applied" value="<%= application.date_applied ? new Date(application.date_applied).toISOString().split('T')[0] : '' %>" />
+                <button type="submit">Save Changes</button>
+            </form>
+
+            <form action="/applications/<%= application.id %>/delete" method="POST" style="margin-top: 12px;">
+                <button type="submit" class="btn-delete" onclick="return confirm('Delete this application?')">Delete Application</button>
+            </form>
+
+            <p><a href="/applications">Back to Applications</a></p>
+        </div>
+    </body>
+</html>
