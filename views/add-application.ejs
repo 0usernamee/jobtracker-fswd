@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Add Application | Job Tracker</title>
+        <link rel="stylesheet" href="/css/auth.css" />
+        <link rel="stylesheet" href="/css/applications.css" />
+    </head>
+    <body>
+        <div class="auth-container">
+            <h1>Add Application</h1>
+
+            <% if (error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+
+            <form action="/applications" method="POST">
+                <input type="text" name="company" placeholder="Company Name" required />
+                <input type="text" name="position" placeholder="Position / Role" required />
+                <input type="url" name="job_link" placeholder="Job Posting URL" />
+                <input type="date" name="date_applied" />
+                <button type="submit">Add Application</button>
+            </form>
+
+            <p><a href="/applications">Back to Applications</a></p>
+        </div>
+    </body>
+</html>
