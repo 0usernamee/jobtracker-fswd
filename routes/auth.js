@@ -34,8 +34,8 @@ router.post("/register", async (req, res) => {
 
         res.redirect("/auth/login");
     } catch (err) {
-        console.error(err);
-        res.render("register", { error: "Something went wrong" });
+        console.error("Register error:", err);
+        res.render("register", { error: err.message || "Something went wrong" });
     }
 });
 
@@ -74,8 +74,8 @@ router.post("/login", async (req, res) => {
 
         res.redirect("/dashboard");
     } catch (err) {
-        console.error(err);
-        res.render("login", { error: "Something went wrong" });
+        console.error("Login error:", err);
+        res.render("login", { error: err.message || "Something went wrong" });
     }
 });
 

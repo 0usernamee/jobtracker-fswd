@@ -3,6 +3,8 @@ const session = require("express-session");
 const path = require("path");
 require("dotenv").config();
 
+console.log("SESSION_SECRET from env:", process.env.SESSION_SECRET);
+
 const app = express();
 
 // Set EJS as templating engine
@@ -17,7 +19,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Session setup
 app.use(
     session({
-        secret: process.env.SESSION_SECRET,
+        secret: process.env.SESSION_SECRET || "supersecretkey",
         resave: false,
         saveUninitialized: false,
     }),
@@ -30,15 +32,21 @@ app.use("/auth", authRoutes);
 const applicationRoutes = require("./routes/applications");
 app.use("/applications", applicationRoutes);
 
-// Dashboard route
-const isAuthenticated = require("./middleware/auth");
-app.get("/dashboard", isAuthenticated, (req, res) => {
-    res.render("dashboard", { username: req.session.username });
+// Dashboard route (auth bypass for dev so UI can be viewed)
+app.get("/dashboard", (req, res) => {
+    res.render("dashboard", {
+        username: req.session.username || "Demo User",
+        totalApplications: 0,
+        totalInterviews: 0,
+        totalOffers: 0,
+        totalRejections: 0,
+        recentApplications: [],
+    });
 });
 
 // Test route
 app.get("/", (req, res) => {
-    res.send("Job Tracker is running!");
+    res.send("NextStep is running!");
 });
 
 // Start server
