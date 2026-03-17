@@ -39,13 +39,32 @@
                             <span class="status-badge status-<%= app.status %>"><%= app.status %></span>
 
                             <div class="progress-dots">
-                                <span class="dot <%= ['applied','interview','offer'].includes(app.status) ? 'active' : '' %>"></span>
-                                <span class="dot <%= ['interview','offer'].includes(app.status) ? 'active' : '' %>"></span>
-                                <span class="dot <%= app.status === 'offer' ? 'active' : '' %>"></span>
+                                <div class="dot-step">
+                                    <span class="dot-label" data-active="<%= ['applied','interview','offer'].includes(app.status) ? 'active' : (app.status === 'rejected' ? 'rejected' : '') %>">Applied</span>
+                                    <span class="dot<%= app.status === 'applied' ? ' current' : '' %>" data-active="<%= ['applied','interview','offer'].includes(app.status) ? 'active' : (app.status === 'rejected' ? 'rejected' : '') %>"></span>
+                                </div>
+                                <div class="dot-line" data-active="<%= ['interview','offer'].includes(app.status) ? 'active' : '' %>"></div>
+                                <div class="dot-step">
+                                    <span class="dot-label" data-active="<%= ['interview','offer'].includes(app.status) ? 'active' : '' %>">Interview</span>
+                                    <span class="dot<%= app.status === 'interview' ? ' current' : '' %>" data-active="<%= ['interview','offer'].includes(app.status) ? 'active' : '' %>"></span>
+                                </div>
+                                <div class="dot-line" data-active="<%= app.status === 'offer' ? 'active' : '' %>"></div>
+                                <div class="dot-step">
+                                    <span class="dot-label" data-active="<%= app.status === 'offer' ? 'active' : '' %>">Offer</span>
+                                    <span class="dot<%= app.status === 'offer' ? ' current' : '' %>" data-active="<%= app.status === 'offer' ? 'active' : '' %>"></span>
+                                </div>
                             </div>
 
                             <div class="card-actions">
                                 <a href="/applications/<%= app.id %>/edit">Edit</a>
+                                <button class="btn-edit-status"
+                                    data-id="<%= app.id %>"
+                                    data-status="<%= app.status %>"
+                                    data-applied-note="<%= app.applied_note || '' %>"
+                                    data-interview-note="<%= app.interview_note || '' %>"
+                                    data-offer-note="<%= app.offer_note || '' %>">
+                                    Edit Status
+                                </button>
                                 <form action="/applications/<%= app.id %>/delete" method="POST">
                                     <button type="submit" class="btn-delete" onclick="return confirm('Delete this application?')">Delete</button>
                                 </form>
@@ -55,5 +74,127 @@
                 </div>
             <% } %>
         </div>
+        <div class="modal-overlay" id="statusModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2>Update Status</h2>
+                    <button type="button" class="modal-close" id="modalClose">&times;</button>
+                </div>
+                <form id="statusForm" method="POST">
+                    <input type="hidden" name="status" id="statusInput" />
+
+                    <div class="status-step" data-status="applied">
+                        <div class="step-header">
+                            <span class="step-radio"></span>
+                            <span class="step-name">Applied</span>
+                        </div>
+                        <textarea name="applied_note" rows="2" placeholder="Add a note..."></textarea>
+                    </div>
+
+                    <div class="status-step" data-status="interview">
+                        <div class="step-header">
+                            <span class="step-radio"></span>
+                            <span class="step-name">Interview</span>
+                        </div>
+                        <textarea name="interview_note" rows="2" placeholder="Add a note..."></textarea>
+                    </div>
+
+                    <div class="status-step" data-status="offer">
+                        <div class="step-header">
+                            <span class="step-radio"></span>
+                            <span class="step-name">Offer</span>
+                        </div>
+                        <textarea name="offer_note" rows="2" placeholder="Add a note..."></textarea>
+                    </div>
+
+                    <div class="modal-quick-actions">
+                        <button type="button" class="btn-quick btn-rejected" data-status="rejected">Rejected</button>
+                        <button type="button" class="btn-quick btn-cancelled" data-status="cancelled">Cancelled</button>
+                    </div>
+
+                    <button type="submit" class="btn-save">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            document.querySelectorAll(".progress-dots").forEach(function (container) {
+                var delay = 0;
+                for (var i = 0; i < container.children.length; i++) {
+                    var child = container.children[i];
+                    if (child.classList.contains("dot-step")) {
+                        var label = child.querySelector(".dot-label");
+                        var dot = child.querySelector(".dot");
+                        [label, dot].forEach(function (el) {
+                            var cls = el.dataset.active;
+                            if (cls) {
+                                (function (element, className, d) {
+                                    setTimeout(function () {
+                                        element.classList.add(className);
+                                    }, d);
+                                })(el, cls, delay);
+                            }
+                        });
+                        if (label.dataset.active) delay += 200;
+                    } else if (child.classList.contains("dot-line") && child.dataset.active) {
+                        (function (element, d) {
+                            setTimeout(function () {
+                                element.classList.add("active");
+                            }, d);
+                        })(child, delay);
+                        delay += 150;
+                    }
+                }
+            });
+
+            var modal = document.getElementById("statusModal");
+            var form = document.getElementById("statusForm");
+            var statusInput = document.getElementById("statusInput");
+            var steps = document.querySelectorAll(".status-step");
+            var quickBtns = document.querySelectorAll(".btn-quick");
+
+            function setActiveStatus(status) {
+                statusInput.value = status;
+                steps.forEach(function (s) {
+                    s.classList.toggle("active", s.dataset.status === status);
+                });
+                quickBtns.forEach(function (b) {
+                    b.classList.toggle("selected", b.dataset.status === status);
+                });
+            }
+
+            document.querySelectorAll(".btn-edit-status").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    form.action = "/applications/" + btn.dataset.id + "/status";
+                    form.querySelector("[name='applied_note']").value = btn.dataset.appliedNote;
+                    form.querySelector("[name='interview_note']").value = btn.dataset.interviewNote;
+                    form.querySelector("[name='offer_note']").value = btn.dataset.offerNote;
+                    setActiveStatus(btn.dataset.status);
+                    modal.classList.add("visible");
+                });
+            });
+
+            steps.forEach(function (step) {
+                step.addEventListener("click", function () {
+                    setActiveStatus(step.dataset.status);
+                });
+            });
+
+            quickBtns.forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    setActiveStatus(btn.dataset.status);
+                });
+            });
+
+            document.getElementById("modalClose").addEventListener("click", function () {
+                modal.classList.remove("visible");
+            });
+
+            modal.addEventListener("click", function (e) {
+                if (e.target === modal) {
+                    modal.classList.remove("visible");
+                }
+            });
+        </script>
     </body>
 </html>
