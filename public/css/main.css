@@ -1,0 +1,282 @@
+:root {
+    --bg-color: #F9F7F7;
+    --surface-color: #DBE2EF;
+    --text-primary: #112D4E;
+    --text-secondary: rgba(17, 45, 78, 0.7);
+    --border-color: rgba(63, 114, 175, 0.3);
+    --primary-color: #3F72AF;
+    --primary-hover: #112D4E;
+    --radius-lg: 16px;
+
+    --status-applied-bg: #fef08a;
+    --status-applied-text: #854d0e;
+    --status-interview-bg: #bfdbfe;
+    --status-interview-text: #1e40af;
+    --status-offer-bg: #bbf7d0;
+    --status-offer-text: #166534;
+    --status-rejected-bg: #fecaca;
+    --status-rejected-text: #991b1b;
+
+    --font-sans: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: "IBM Plex Mono", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.dark {
+    --bg-color: #0B1423;
+    --surface-color: #112D4E;
+    --text-primary: #F9F7F7;
+    --text-secondary: rgba(249, 247, 247, 0.7);
+    --border-color: rgba(63, 114, 175, 0.5);
+    --primary-color: #3F72AF;
+    --primary-hover: #5A8DCA;
+
+    --status-applied-bg: rgba(254, 240, 138, 0.15);
+    --status-applied-text: #fef08a;
+    --status-interview-bg: rgba(191, 219, 254, 0.15);
+    --status-interview-text: #bfdbfe;
+    --status-offer-bg: rgba(187, 247, 208, 0.15);
+    --status-offer-text: #bbf7d0;
+    --status-rejected-bg: rgba(254, 202, 202, 0.15);
+    --status-rejected-text: #fecaca;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font-mono);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-sans);
+    margin-top: 0;
+}
+
+.page-shell {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 1.5rem 1.75rem;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding: 0.75rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.top-bar__title {
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.top-bar__subtitle {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: 0.25rem 0 0 0;
+    font-weight: 500;
+    font-family: var(--font-sans);
+}
+
+.dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.btn--primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.btn--primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn--ghost {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+.btn--ghost:hover {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+}
+
+.subtle-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.subtle-link:hover {
+    color: var(--text-primary);
+}
+
+.pill {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.stat-pill {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.stat-pill__label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.stat-pill__value {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.job-card {
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface-color);
+}
+
+.job-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.job-card h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem 0;
+}
+
+.job-card .position {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: 0 0 1rem 0;
+    font-weight: 500;
+}
+
+.job-card a {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    text-decoration: underline;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    font-weight: 500;
+}
+
+.job-card .date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin: auto 0 0 0;
+}
+
+.progress-dots {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.dot {
+    height: 4px;
+    flex: 1;
+    background-color: var(--border-color);
+    border-radius: 9999px;
+}
+
+.dot.active {
+    background-color: var(--primary-color);
+}
