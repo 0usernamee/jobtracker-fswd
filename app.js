@@ -44,6 +44,17 @@ app.get("/dashboard", (req, res) => {
     });
 });
 
+// Demo route — bypasses auth with fake data for testing
+app.get("/demo", (req, res) => {
+    const demoApplications = [
+        { id: 1, company: "Google", position: "Software Engineer", job_link: "https://google.com", date_applied: new Date(), status: "applied", applied_note: "Submitted through careers page", interview_note: "", offer_note: "" },
+        { id: 2, company: "Apple", position: "Frontend Developer", job_link: "https://apple.com", date_applied: new Date(), status: "interview", applied_note: "Referral from John", interview_note: "Phone screen scheduled for Friday", offer_note: "" },
+        { id: 3, company: "Netflix", position: "Full Stack Dev", job_link: "https://netflix.com", date_applied: new Date(), status: "offer", applied_note: "", interview_note: "3 rounds completed", offer_note: "120k base + equity" },
+        { id: 4, company: "Meta", position: "UI Engineer", job_link: "https://meta.com", date_applied: new Date(), status: "rejected", applied_note: "Applied online", interview_note: "", offer_note: "" },
+    ];
+    res.render("applications", { applications: demoApplications, username: "DemoUser" });
+});
+
 // Test route
 app.get("/", (req, res) => {
     res.send("NextStep is running!");

@@ -71,6 +71,21 @@ router.post("/:id/edit", async (req, res) => {
     }
 });
 
+// Update application status
+router.post("/:id/status", async (req, res) => {
+    const { status, applied_note, interview_note, offer_note } = req.body;
+    try {
+        await pool.query(
+            "UPDATE applications SET status = $1, applied_note = $2, interview_note = $3, offer_note = $4 WHERE id = $5 AND user_id = $6",
+            [status, applied_note || null, interview_note || null, offer_note || null, req.params.id, req.session.userId]
+        );
+        res.redirect("/applications");
+    } catch (err) {
+        console.error(err);
+        res.redirect("/applications");
+    }
+});
+
 // Delete application
 router.post("/:id/delete", async (req, res) => {
     try {
