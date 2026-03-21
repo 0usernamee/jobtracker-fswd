@@ -186,6 +186,17 @@
     background-color: #4f46e5;
 }
 
+.stage-note {
+    font-size: 13px;
+    color: #555;
+    background-color: #f3f4f6;
+    border-left: 3px solid #4f46e5;
+    padding: 8px 12px;
+    border-radius: 0 6px 6px 0;
+    margin: 8px 0 0 0;
+    line-height: 1.4;
+}
+
 .card-actions {
     display: flex;
     gap: 12px;

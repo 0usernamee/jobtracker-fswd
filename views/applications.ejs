@@ -55,6 +55,11 @@
                                 </div>
                             </div>
 
+                            <% var activeNote = app.status === 'applied' ? app.applied_note : app.status === 'interview' ? app.interview_note : app.status === 'offer' ? app.offer_note : null; %>
+                            <% if (activeNote) { %>
+                                <p class="stage-note"><%= activeNote %></p>
+                            <% } %>
+
                             <div class="card-actions">
                                 <a href="/applications/<%= app.id %>/edit">Edit</a>
                                 <button class="btn-edit-status"
