@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
     try {
         const result = await pool.query(
             "SELECT * FROM applications WHERE user_id = $1 ORDER BY created_at DESC",
-            [req.session.userId]
+            [req.session.userId || 1]
         );
         res.render("applications", { applications: result.rows, username: req.session.username });
     } catch (err) {
@@ -21,15 +21,34 @@ router.get("/add", (req, res) => {
     res.render("add-application", { error: null });
 });
 
+// Show initial status form after creating an application
+router.get("/:id/setup-status", async (req, res) => {
+    try {
+        const result = await pool.query(
+            "SELECT * FROM applications WHERE id = $1 AND user_id = $2",
+            [req.params.id, req.session.userId || 1]
+        );
+
+        if (result.rows.length === 0) {
+            return res.redirect("/applications");
+        }
+
+        res.render("setup-application-status", { application: result.rows[0] });
+    } catch (err) {
+        console.error(err);
+        res.redirect("/applications");
+    }
+});
+
 // Create new application
 router.post("/", async (req, res) => {
     const { company, position, job_link, date_applied } = req.body;
     try {
-        await pool.query(
-            "INSERT INTO applications (user_id, company, position, job_link, date_applied) VALUES ($1, $2, $3, $4, $5)",
+        const result = await pool.query(
+            "INSERT INTO applications (user_id, company, position, job_link, date_applied) VALUES ($1, $2, $3, $4, $5) RETURNING id",
             [req.session.userId || 1, company, position, job_link || null, date_applied || null]
         );
-        res.redirect("/applications");
+        res.redirect(`/applications/${result.rows[0].id}/setup-status`);
     } catch (err) {
         console.error("Add application error:", err);
         res.render("add-application", { error: err.message || "Failed to add application" });
@@ -77,7 +96,7 @@ router.post("/:id/status", async (req, res) => {
     try {
         await pool.query(
             "UPDATE applications SET status = $1, applied_note = $2, interview_note = $3, offer_note = $4 WHERE id = $5 AND user_id = $6",
-            [status, applied_note || null, interview_note || null, offer_note || null, req.params.id, req.session.userId]
+            [status, applied_note || null, interview_note || null, offer_note || null, req.params.id, req.session.userId || 1]
         );
         res.redirect("/applications");
     } catch (err) {

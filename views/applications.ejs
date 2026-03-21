@@ -79,6 +79,8 @@
                 <div class="card-grid">
                     <% applications.forEach(app => { %>
                         <div class="job-card">
+                            <% var activeNote = app.status === 'applied' ? app.applied_note : app.status === 'interview' ? app.interview_note : app.status === 'offer' ? app.offer_note : null; %>
+                            <% var activeStageLabel = app.status === 'applied' ? 'Applied' : app.status === 'interview' ? 'Interview' : app.status === 'offer' ? 'Offer' : app.status === 'rejected' ? 'Rejected' : app.status === 'cancelled' ? 'Cancelled' : 'Current'; %>
                             <h3><%= app.company %></h3>
                             <p class="position"><%= app.position %></p>
 
@@ -120,6 +122,14 @@
                                 <form action="/applications/<%= app.id %>/delete" method="POST">
                                     <button type="submit" class="btn-delete" onclick="return confirm('Delete this application?')">Delete</button>
                                 </form>
+                                <button
+                                    type="button"
+                                    class="btn-view-note"
+                                    data-company="<%= app.company %>"
+                                    data-stage="<%= activeStageLabel %>"
+                                    data-note="<%= activeNote || '' %>">
+                                    View Note
+                                </button>
                             </div>
                         </div>
                     <% }) %>
@@ -169,6 +179,22 @@
             </div>
         </div>
 
+        <div class="modal-overlay" id="noteModal">
+            <div class="modal note-modal">
+                <div class="modal-header">
+                    <div>
+                        <h2 id="noteModalTitle">Current Note</h2>
+                        <p class="note-modal-stage" id="noteModalStage"></p>
+                    </div>
+                    <button type="button" class="modal-close" id="noteModalClose">&times;</button>
+                </div>
+                <div class="note-modal-body">
+                    <p id="noteModalText"></p>
+                </div>
+                <button type="button" class="btn-save note-modal-close-btn" id="noteModalDone">Close</button>
+            </div>
+        </div>
+
         <script>
             document.querySelectorAll(".progress-dots").forEach(function (container) {
                 var delay = 0;
@@ -204,6 +230,10 @@
             var statusInput = document.getElementById("statusInput");
             var steps = document.querySelectorAll(".status-step");
             var quickBtns = document.querySelectorAll(".btn-quick");
+            var noteModal = document.getElementById("noteModal");
+            var noteModalTitle = document.getElementById("noteModalTitle");
+            var noteModalStage = document.getElementById("noteModalStage");
+            var noteModalText = document.getElementById("noteModalText");
 
             function setActiveStatus(status) {
                 statusInput.value = status;
@@ -223,6 +253,15 @@
                     form.querySelector("[name='offer_note']").value = btn.dataset.offerNote;
                     setActiveStatus(btn.dataset.status);
                     modal.classList.add("visible");
+                });
+            });
+
+            document.querySelectorAll(".btn-view-note").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    noteModalTitle.textContent = btn.dataset.company + " Note";
+                    noteModalStage.textContent = "Current stage: " + btn.dataset.stage;
+                    noteModalText.textContent = btn.dataset.note || "No note saved for the current stage yet.";
+                    noteModal.classList.add("visible");
                 });
             });
 
@@ -247,6 +286,20 @@
             modal.addEventListener("click", function (e) {
                 if (e.target === modal) {
                     modal.classList.remove("visible");
+                }
+            });
+
+            document.getElementById("noteModalClose").addEventListener("click", function () {
+                noteModal.classList.remove("visible");
+            });
+
+            document.getElementById("noteModalDone").addEventListener("click", function () {
+                noteModal.classList.remove("visible");
+            });
+
+            noteModal.addEventListener("click", function (e) {
+                if (e.target === noteModal) {
+                    noteModal.classList.remove("visible");
                 }
             });
         </script>

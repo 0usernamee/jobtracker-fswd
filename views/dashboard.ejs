@@ -115,6 +115,8 @@
                         <div class="card-grid">
                             <% recentApplications.forEach(app => { %>
                                 <div class="job-card">
+                                    <% var activeNote = app.status === 'applied' ? app.applied_note : app.status === 'interview' ? app.interview_note : app.status === 'offer' ? app.offer_note : null; %>
+                                    <% var activeStageLabel = app.status === 'applied' ? 'Applied' : app.status === 'interview' ? 'Interview' : app.status === 'offer' ? 'Offer' : app.status === 'rejected' ? 'Rejected' : app.status === 'cancelled' ? 'Cancelled' : 'Current'; %>
                                     <h3><%= app.company %></h3>
                                     <p class="position"><%= app.position %></p>
 
@@ -139,12 +141,98 @@
                                         <span
                                             class="dot <%= app.status === 'offer' ? 'active' : '' %>"></span>
                                     </div>
+
+                                    <div class="card-actions">
+                                        <a href="/applications/<%= app.id %>/edit">Edit</a>
+                                        <button
+                                            class="btn-edit-status"
+                                            data-id="<%= app.id %>"
+                                            data-status="<%= app.status %>"
+                                            data-applied-note="<%= app.applied_note || '' %>"
+                                            data-interview-note="<%= app.interview_note || '' %>"
+                                            data-offer-note="<%= app.offer_note || '' %>">
+                                            Edit Status
+                                        </button>
+                                        <form action="/applications/<%= app.id %>/delete" method="POST">
+                                            <button
+                                                type="submit"
+                                                class="btn-delete"
+                                                onclick="return confirm('Delete this application?')">
+                                                Delete
+                                            </button>
+                                        </form>
+                                        <button
+                                            type="button"
+                                            class="btn-view-note"
+                                            data-company="<%= app.company %>"
+                                            data-stage="<%= activeStageLabel %>"
+                                            data-note="<%= activeNote || '' %>">
+                                            View Note
+                                        </button>
+                                    </div>
                                 </div>
                             <% }) %>
                         </div>
                     <% } %>
                 </section>
             </main>
+        </div>
+        <div class="modal-overlay" id="statusModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2>Update Status</h2>
+                    <button type="button" class="modal-close" id="modalClose">&times;</button>
+                </div>
+                <form id="statusForm" method="POST">
+                    <input type="hidden" name="status" id="statusInput" />
+
+                    <div class="status-step" data-status="applied">
+                        <div class="step-header">
+                            <span class="step-radio"></span>
+                            <span class="step-name">Applied</span>
+                        </div>
+                        <textarea name="applied_note" rows="2" placeholder="Add a note..."></textarea>
+                    </div>
+
+                    <div class="status-step" data-status="interview">
+                        <div class="step-header">
+                            <span class="step-radio"></span>
+                            <span class="step-name">Interview</span>
+                        </div>
+                        <textarea name="interview_note" rows="2" placeholder="Add a note..."></textarea>
+                    </div>
+
+                    <div class="status-step" data-status="offer">
+                        <div class="step-header">
+                            <span class="step-radio"></span>
+                            <span class="step-name">Offer</span>
+                        </div>
+                        <textarea name="offer_note" rows="2" placeholder="Add a note..."></textarea>
+                    </div>
+
+                    <div class="modal-quick-actions">
+                        <button type="button" class="btn-quick btn-rejected" data-status="rejected">Rejected</button>
+                        <button type="button" class="btn-quick btn-cancelled" data-status="cancelled">Cancelled</button>
+                    </div>
+
+                    <button type="submit" class="btn-save">Save Changes</button>
+                </form>
+            </div>
+        </div>
+        <div class="modal-overlay" id="noteModal">
+            <div class="modal note-modal">
+                <div class="modal-header">
+                    <div>
+                        <h2 id="noteModalTitle">Current Note</h2>
+                        <p class="note-modal-stage" id="noteModalStage"></p>
+                    </div>
+                    <button type="button" class="modal-close" id="noteModalClose">&times;</button>
+                </div>
+                <div class="note-modal-body">
+                    <p id="noteModalText"></p>
+                </div>
+                <button type="button" class="btn-save note-modal-close-btn" id="noteModalDone">Close</button>
+            </div>
         </div>
         <script>
             (function () {
@@ -184,6 +272,82 @@
                     });
                 }
             })();
+
+            var statusModal = document.getElementById("statusModal");
+            var statusForm = document.getElementById("statusForm");
+            var statusInput = document.getElementById("statusInput");
+            var steps = document.querySelectorAll(".status-step");
+            var quickBtns = document.querySelectorAll(".btn-quick");
+            var noteModal = document.getElementById("noteModal");
+            var noteModalTitle = document.getElementById("noteModalTitle");
+            var noteModalStage = document.getElementById("noteModalStage");
+            var noteModalText = document.getElementById("noteModalText");
+
+            function setActiveStatus(status) {
+                statusInput.value = status;
+                steps.forEach(function (step) {
+                    step.classList.toggle("active", step.dataset.status === status);
+                });
+                quickBtns.forEach(function (btn) {
+                    btn.classList.toggle("selected", btn.dataset.status === status);
+                });
+            }
+
+            document.querySelectorAll(".btn-edit-status").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    statusForm.action = "/applications/" + btn.dataset.id + "/status";
+                    statusForm.querySelector("[name='applied_note']").value = btn.dataset.appliedNote;
+                    statusForm.querySelector("[name='interview_note']").value = btn.dataset.interviewNote;
+                    statusForm.querySelector("[name='offer_note']").value = btn.dataset.offerNote;
+                    setActiveStatus(btn.dataset.status);
+                    statusModal.classList.add("visible");
+                });
+            });
+
+            document.querySelectorAll(".btn-view-note").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    noteModalTitle.textContent = btn.dataset.company + " Note";
+                    noteModalStage.textContent = "Current stage: " + btn.dataset.stage;
+                    noteModalText.textContent = btn.dataset.note || "No note saved for the current stage yet.";
+                    noteModal.classList.add("visible");
+                });
+            });
+
+            steps.forEach(function (step) {
+                step.addEventListener("click", function () {
+                    setActiveStatus(step.dataset.status);
+                });
+            });
+
+            quickBtns.forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    setActiveStatus(btn.dataset.status);
+                });
+            });
+
+            document.getElementById("modalClose").addEventListener("click", function () {
+                statusModal.classList.remove("visible");
+            });
+
+            statusModal.addEventListener("click", function (e) {
+                if (e.target === statusModal) {
+                    statusModal.classList.remove("visible");
+                }
+            });
+
+            document.getElementById("noteModalClose").addEventListener("click", function () {
+                noteModal.classList.remove("visible");
+            });
+
+            document.getElementById("noteModalDone").addEventListener("click", function () {
+                noteModal.classList.remove("visible");
+            });
+
+            noteModal.addEventListener("click", function (e) {
+                if (e.target === noteModal) {
+                    noteModal.classList.remove("visible");
+                }
+            });
         </script>
     </body>
 </html>
