@@ -7,8 +7,12 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://api.fontshare.com" />
         <link
-            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Manrope:wght@500;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap"
             rel="stylesheet" />
 
         <link rel="stylesheet" href="/css/main.css" />
@@ -18,10 +22,10 @@
     <body>
         <div class="page-shell">
             <header class="top-bar">
-                <div>
-                    <a href="/dashboard" class="subtle-link" style="text-decoration: none;">
-                        <h1 class="top-bar__title">NextStep</h1>
-                    </a>
+                <div class="top-bar__left">
+                    <div class="top-bar__brand">
+                        <%- include('partials/brand-logo') %>
+                    </div>
                     <p class="top-bar__subtitle">Edit your application.</p>
                 </div>
                 <div style="display: flex; gap: 1rem; align-items: center;">

@@ -7,233 +7,336 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://api.fontshare.com" />
         <link
-            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Manrope:wght@500;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap"
             rel="stylesheet" />
 
         <link rel="stylesheet" href="/css/main.css" />
         <link rel="stylesheet" href="/css/applications.css" />
     </head>
     <body>
-        <div class="page-shell">
-            <header class="top-bar">
-                <div>
-                    <a href="/dashboard" class="subtle-link" style="text-decoration: none;">
-                        <h1 class="top-bar__title">NextStep</h1>
-                    </a>
-                </div>
-                <div style="display: flex; gap: 1rem; align-items: center;">
-                    <button
-                        id="theme-toggle"
-                        class="btn btn--ghost"
-                        type="button"
-                        aria-label="Toggle theme">
-                        <svg
-                            id="icon-moon"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                            stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path
-                                d="M21 12.79A9 9 0 0 1 12.21 3 7 7 0 1 0 21 12.79z" />
-                        </svg>
-                        <svg
-                            id="icon-sun"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            style="display: none;">
-                            <circle cx="12" cy="12" r="4" />
-                            <line x1="12" y1="2" x2="12" y2="5" />
-                            <line x1="12" y1="19" x2="12" y2="22" />
-                            <line x1="4.22" y1="4.22" x2="6.34" y2="6.34" />
-                            <line x1="17.66" y1="17.66" x2="19.78" y2="19.78" />
-                            <line x1="2" y1="12" x2="5" y2="12" />
-                            <line x1="19" y1="12" x2="22" y2="12" />
-                            <line x1="4.22" y1="19.78" x2="6.34" y2="17.66" />
-                            <line x1="17.66" y1="6.34" x2="19.78" y2="4.22" />
-                        </svg>
-                    </button>
-                    <a href="/auth/logout" class="btn btn--ghost">Logout</a>
+        <div class="studio-page">
+            <header class="studio-header">
+                <div class="studio-header__inner">
+                    <div class="top-bar__brand studio-top-bar-logo">
+                        <%- include('partials/brand-logo') %>
+                    </div>
+                    <div class="studio-header__actions">
+                        <button
+                            id="theme-toggle"
+                            class="studio-theme-btn"
+                            type="button"
+                            aria-label="Toggle dark mode">
+                            <svg
+                                id="icon-moon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 0 1 12.21 3 7 7 0 1 0 21 12.79z" />
+                            </svg>
+                            <svg
+                                id="icon-sun"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                style="display: none;">
+                                <circle cx="12" cy="12" r="4" />
+                                <line x1="12" y1="2" x2="12" y2="5" />
+                                <line x1="12" y1="19" x2="12" y2="22" />
+                                <line x1="4.22" y1="4.22" x2="6.34" y2="6.34" />
+                                <line x1="17.66" y1="17.66" x2="19.78" y2="19.78" />
+                                <line x1="2" y1="12" x2="5" y2="12" />
+                                <line x1="19" y1="12" x2="22" y2="12" />
+                                <line x1="4.22" y1="19.78" x2="6.34" y2="17.66" />
+                                <line x1="17.66" y1="6.34" x2="19.78" y2="4.22" />
+                            </svg>
+                        </button>
+                        <a href="/auth/logout" class="studio-logout">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" y1="12" x2="9" y2="12" />
+                            </svg>
+                            Logout
+                        </a>
+                    </div>
                 </div>
             </header>
 
-            <main class="dashboard-grid">
-                <section class="card">
-                    <p class="top-bar__subtitle" style="margin-bottom: 0.75rem;">
-                        Welcome back, <%= username %>.
-                    </p>
-                    <div class="list-header">
-                        <div>
-                            <span class="pill">Overview of job hunt</span>
-                        </div>
-                        <a href="/applications/add" class="btn btn--primary">+ Add application</a>
+            <main class="studio-main">
+                <% if (saved) { %>
+                    <div class="studio-flash" role="status">
+                        <span>Application saved successfully.</span>
+                        <button type="button" class="studio-flash__close" aria-label="Dismiss message">&times;</button>
                     </div>
-
-                    <div class="stats-grid">
-                        <div class="stat-pill">
-                            <span class="stat-pill__label">Applications</span>
-                            <span class="stat-pill__value"><%= totalApplications || 0 %></span>
-                        </div>
-                        <div class="stat-pill">
-                            <span class="stat-pill__label">Interviews</span>
-                            <span class="stat-pill__value"><%= totalInterviews || 0 %></span>
-                        </div>
-                        <div class="stat-pill">
-                            <span class="stat-pill__label">Rejections</span>
-                            <span class="stat-pill__value"><%= totalRejections || 0 %></span>
-                        </div>
-                        <div class="stat-pill">
-                            <span class="stat-pill__label">Offers</span>
-                            <span class="stat-pill__value"><%= totalOffers || 0 %></span>
-                        </div>
+                <% } %>
+                <% if (updated) { %>
+                    <div class="studio-flash" role="status">
+                        <span>Application updated successfully.</span>
+                        <button type="button" class="studio-flash__close" aria-label="Dismiss message">&times;</button>
                     </div>
-                </section>
+                <% } %>
 
-                <section class="card">
-                    <div class="list-header">
-                        <h2 style="font-size: 1rem; margin: 0;">Recent applications</h2>
-                        <a href="/applications" class="subtle-link">View all</a>
+                <div class="studio-stats-grid">
+                    <div class="studio-stat-card">
+                        <div class="studio-stat-card__label">Total Applications</div>
+                        <div class="studio-stat-card__value"><%= totalApplications || 0 %></div>
                     </div>
+                    <div class="studio-stat-card">
+                        <div class="studio-stat-card__label">Active Interviews</div>
+                        <div class="studio-stat-card__value"><%= totalInterviews || 0 %></div>
+                    </div>
+                    <div class="studio-stat-card">
+                        <div class="studio-stat-card__label">Offers Received</div>
+                        <div class="studio-stat-card__value"><%= totalOffers || 0 %></div>
+                    </div>
+                    <div class="studio-stat-card">
+                        <div class="studio-stat-card__label">Rejected</div>
+                        <div class="studio-stat-card__value"><%= totalRejections || 0 %></div>
+                    </div>
+                </div>
 
-                    <% if (!recentApplications || recentApplications.length === 0) { %>
-                        <p style="font-size: 0.9rem; opacity: 0.75;">
-                            No applications yet. Start by adding your first one.
-                        </p>
-                    <% } else { %>
-                        <div class="card-grid">
-                            <% recentApplications.forEach(app => { %>
-                                <div class="job-card">
-                                    <% var activeNote = app.status === 'applied' ? app.applied_note : app.status === 'interview' ? app.interview_note : app.status === 'offer' ? app.offer_note : null; %>
-                                    <% var activeStageLabel = app.status === 'applied' ? 'Applied' : app.status === 'interview' ? 'Interview' : app.status === 'offer' ? 'Offer' : app.status === 'rejected' ? 'Rejected' : app.status === 'cancelled' ? 'Cancelled' : 'Current'; %>
-                                    <h3><%= app.company %></h3>
-                                    <p class="position"><%= app.position %></p>
+                <div class="studio-split" id="studio-split">
+                    <aside class="studio-form-panel" id="studio-form-panel">
+                        <div class="studio-card studio-card--padded">
+                            <h3 class="studio-card__title" id="form-title">Add Application</h3>
+                            <% if (addError) { %>
+                                <p class="dashboard-form-error"><%= addError %></p>
+                            <% } %>
+                            <form class="studio-add-form" action="/applications" method="POST" id="dashboard-add-form">
+                                <input type="hidden" name="form_source" value="dashboard" />
 
-                                    <% if (app.job_link) { %>
-                                        <a href="<%= app.job_link %>" target="_blank">View job post</a>
-                                    <% } %>
-
-                                    <p class="date">
-                                        Applied:
-                                        <%= app.date_applied ? new Date(app.date_applied).toLocaleDateString() : 'N/A' %>
-                                    </p>
-
-                                    <span class="status-badge status-<%= app.status %>">
-                                        <%= app.status || 'applied' %>
-                                    </span>
-
-                                    <div class="progress-dots">
-                                        <span
-                                            class="dot <%= ['applied','interview','offer'].includes(app.status) ? 'active' : '' %>"></span>
-                                        <span
-                                            class="dot <%= ['interview','offer'].includes(app.status) ? 'active' : '' %>"></span>
-                                        <span
-                                            class="dot <%= app.status === 'offer' ? 'active' : '' %>"></span>
-                                    </div>
-
-                                    <div class="card-actions">
-                                        <a href="/applications/<%= app.id %>/edit">Edit</a>
-                                        <button
-                                            class="btn-edit-status"
-                                            data-id="<%= app.id %>"
-                                            data-status="<%= app.status %>"
-                                            data-applied-note="<%= app.applied_note || '' %>"
-                                            data-interview-note="<%= app.interview_note || '' %>"
-                                            data-offer-note="<%= app.offer_note || '' %>">
-                                            Edit Status
-                                        </button>
-                                        <form action="/applications/<%= app.id %>/delete" method="POST">
-                                            <button
-                                                type="submit"
-                                                class="btn-delete"
-                                                onclick="return confirm('Delete this application?')">
-                                                Delete
-                                            </button>
-                                        </form>
-                                        <button
-                                            type="button"
-                                            class="btn-view-note"
-                                            data-company="<%= app.company %>"
-                                            data-stage="<%= activeStageLabel %>"
-                                            data-note="<%= activeNote || '' %>">
-                                            View Note
-                                        </button>
+                                <div class="studio-field">
+                                    <label class="studio-field__label" for="company">Company</label>
+                                    <div class="studio-field__wrap">
+                                        <span class="studio-field__icon" aria-hidden="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M3 21h18" />
+                                                <path d="M5 21V7l8-4v18" />
+                                                <path d="M19 21V11l-6-4" />
+                                                <path d="M9 9v.01" />
+                                                <path d="M9 12v.01" />
+                                                <path d="M9 15v.01" />
+                                                <path d="M9 18v.01" />
+                                            </svg>
+                                        </span>
+                                        <input
+                                            class="studio-input"
+                                            id="company"
+                                            type="text"
+                                            name="company"
+                                            required
+                                            autocomplete="organization"
+                                            placeholder="e.g. Airbnb" />
                                     </div>
                                 </div>
-                            <% }) %>
+
+                                <div class="studio-field">
+                                    <label class="studio-field__label" for="position">Role</label>
+                                    <div class="studio-field__wrap">
+                                        <span class="studio-field__icon" aria-hidden="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                                            </svg>
+                                        </span>
+                                        <input
+                                            class="studio-input"
+                                            id="position"
+                                            type="text"
+                                            name="position"
+                                            required
+                                            autocomplete="organization-title"
+                                            placeholder="e.g. Frontend Engineer" />
+                                    </div>
+                                </div>
+
+                                <div class="studio-field">
+                                    <label class="studio-field__label" for="job_link">
+                                        Posting Link <span class="optional">(Optional)</span>
+                                    </label>
+                                    <div class="studio-field__wrap">
+                                        <span class="studio-field__icon" aria-hidden="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                                            </svg>
+                                        </span>
+                                        <input
+                                            class="studio-input"
+                                            id="job_link"
+                                            type="url"
+                                            name="job_link"
+                                            placeholder="https://…" />
+                                    </div>
+                                </div>
+
+                                <div class="studio-field">
+                                    <label class="studio-field__label" for="date_applied">Date applied <span class="optional">(Optional)</span></label>
+                                    <input class="studio-input" id="date_applied" type="date" name="date_applied" />
+                                </div>
+
+                                <div class="studio-field">
+                                    <label class="studio-field__label" for="status-select">Status</label>
+                                    <select class="studio-select" id="status-select" name="status">
+                                        <option value="applied">Applied</option>
+                                        <option value="interview">Interview</option>
+                                        <option value="offer">Offer</option>
+                                        <option value="rejected">Rejected</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="studio-btn-save" id="form-submit-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                                        <line x1="12" y1="5" x2="12" y2="19" />
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                    </svg>
+                                    <span id="submit-btn-label">Save Application</span>
+                                </button>
+                                <button type="button" class="studio-form-cancel" id="cancel-edit-btn" aria-label="Cancel editing">Cancel editing</button>
+                            </form>
                         </div>
-                    <% } %>
-                </section>
+                    </aside>
+
+                    <section class="studio-pipeline">
+                        <div class="studio-card">
+                            <div class="studio-pipeline-head">
+                                <h3>View applications</h3>
+                                <div class="studio-pipeline-head__actions">
+                                    <button
+                                        type="button"
+                                        class="studio-pipeline-toggle-btn"
+                                        id="pipeline-expand-btn"
+                                        aria-expanded="false"
+                                        aria-controls="studio-split">
+                                        Expand
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="studio-pipeline-toggle-btn studio-pipeline-toggle-btn--minimize"
+                                        id="pipeline-minimize-btn"
+                                        hidden
+                                        aria-expanded="false"
+                                        aria-controls="studio-split">
+                                        Minimize
+                                    </button>
+                                </div>
+                            </div>
+
+                            <% if (!recentApplications || recentApplications.length === 0) { %>
+                                <p class="studio-pipeline-empty">No applications yet. Start by adding your first one.</p>
+                            <% } else { %>
+                                <% recentApplications.forEach(app => { %>
+                                    <% var st = app.status || 'applied'; %>
+                                    <% var statusWords = { applied: 'Applied', interview: 'Interview', offer: 'Offer', rejected: 'Rejected', cancelled: 'Cancelled' }; %>
+                                    <% var statusLabel = statusWords[st] || st; %>
+                                    <% var badgeClass = 'studio-badge--' + (['applied','interview','offer','rejected','cancelled'].includes(st) ? st : 'applied'); %>
+                                    <% var dateStr = app.date_applied ? new Date(app.date_applied).toISOString().slice(0, 10) : ''; %>
+                                    <div class="studio-row" data-app-id="<%= app.id %>">
+                                        <div class="studio-row__mainline">
+                                            <div class="studio-row__left">
+                                                <div class="studio-row__avatar" aria-hidden="true"><%= (app.company || '?').charAt(0).toUpperCase() %></div>
+                                                <div>
+                                                    <div class="studio-row__title"><%= app.company %></div>
+                                                    <div class="studio-row__subtitle"><%= app.position %></div>
+                                                </div>
+                                            </div>
+                                            <div class="studio-row__right">
+                                                <span class="studio-badge <%= badgeClass %>" data-status-badge="true"><%= statusLabel %></span>
+                                                <span class="studio-row__date">
+                                                    <%= app.date_applied ? new Date(app.date_applied).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—' %>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="studio-row__actions">
+                                            <% if (app.job_link) { %>
+                                                <a href="<%= app.job_link %>" target="_blank" rel="noopener">Link</a>
+                                            <% } %>
+                                            <button
+                                                type="button"
+                                                class="btn-edit-dash"
+                                                data-id="<%= app.id %>"
+                                                data-company="<%= encodeURIComponent(app.company || '') %>"
+                                                data-position="<%= encodeURIComponent(app.position || '') %>"
+                                                data-job-link="<%= encodeURIComponent(app.job_link || '') %>"
+                                                data-date="<%= dateStr %>"
+                                                data-status="<%= st %>">
+                                                Edit
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn-edit-status"
+                                                data-id="<%= app.id %>"
+                                                data-status="<%= app.status %>"
+                                                data-applied-note="<%= encodeURIComponent(app.applied_note || '') %>"
+                                                data-interview-note="<%= encodeURIComponent(app.interview_note || '') %>"
+                                                data-offer-note="<%= encodeURIComponent(app.offer_note || '') %>">
+                                                Status
+                                            </button>
+                                            <button type="button" class="btn-delete-dash danger" data-id="<%= app.id %>">Delete</button>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                    </section>
+                </div>
             </main>
         </div>
-        <div class="modal-overlay" id="statusModal">
-            <div class="modal">
-                <div class="modal-header">
-                    <h2>Update Status</h2>
-                    <button type="button" class="modal-close" id="modalClose">&times;</button>
+
+        <div class="studio-modal-overlay" id="statusModal">
+            <div class="studio-modal" role="dialog" aria-labelledby="status-modal-title">
+                <div class="studio-modal__head">
+                    <h2 id="status-modal-title">Update status</h2>
+                    <button type="button" class="studio-modal__close" id="modalClose" aria-label="Close">&times;</button>
                 </div>
                 <form id="statusForm" method="POST">
-                    <input type="hidden" name="status" id="statusInput" />
-
-                    <div class="status-step" data-status="applied">
-                        <div class="step-header">
-                            <span class="step-radio"></span>
-                            <span class="step-name">Applied</span>
-                        </div>
-                        <textarea name="applied_note" rows="2" placeholder="Add a note..."></textarea>
+                    <input type="hidden" name="form_source" value="dashboard" />
+                    <div class="studio-field">
+                        <label class="studio-field__label" for="status-modal-select">Status</label>
+                        <select class="studio-select" id="status-modal-select" name="status">
+                            <option value="applied">Applied</option>
+                            <option value="interview">Interview</option>
+                            <option value="offer">Offer</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
                     </div>
-
-                    <div class="status-step" data-status="interview">
-                        <div class="step-header">
-                            <span class="step-radio"></span>
-                            <span class="step-name">Interview</span>
-                        </div>
-                        <textarea name="interview_note" rows="2" placeholder="Add a note..."></textarea>
+                    <p class="studio-modal__notes-label">Notes by stage</p>
+                    <div class="studio-field">
+                        <label class="studio-field__label" for="applied_note">Applied</label>
+                        <textarea class="studio-input" id="applied_note" name="applied_note" rows="2" placeholder="Note for applied stage…"></textarea>
                     </div>
-
-                    <div class="status-step" data-status="offer">
-                        <div class="step-header">
-                            <span class="step-radio"></span>
-                            <span class="step-name">Offer</span>
-                        </div>
-                        <textarea name="offer_note" rows="2" placeholder="Add a note..."></textarea>
+                    <div class="studio-field">
+                        <label class="studio-field__label" for="interview_note">Interview</label>
+                        <textarea class="studio-input" id="interview_note" name="interview_note" rows="2" placeholder="Note for interview stage…"></textarea>
                     </div>
-
-                    <div class="modal-quick-actions">
-                        <button type="button" class="btn-quick btn-rejected" data-status="rejected">Rejected</button>
-                        <button type="button" class="btn-quick btn-cancelled" data-status="cancelled">Cancelled</button>
+                    <div class="studio-field">
+                        <label class="studio-field__label" for="offer_note">Offer</label>
+                        <textarea class="studio-input" id="offer_note" name="offer_note" rows="2" placeholder="Note for offer stage…"></textarea>
                     </div>
-
-                    <button type="submit" class="btn-save">Save Changes</button>
+                    <button type="submit" class="studio-btn-save" id="status-save-btn">Save</button>
                 </form>
             </div>
         </div>
-        <div class="modal-overlay" id="noteModal">
-            <div class="modal note-modal">
-                <div class="modal-header">
-                    <div>
-                        <h2 id="noteModalTitle">Current Note</h2>
-                        <p class="note-modal-stage" id="noteModalStage"></p>
-                    </div>
-                    <button type="button" class="modal-close" id="noteModalClose">&times;</button>
-                </div>
-                <div class="note-modal-body">
-                    <p id="noteModalText"></p>
-                </div>
-                <button type="button" class="btn-save note-modal-close-btn" id="noteModalDone">Close</button>
-            </div>
-        </div>
+
         <script>
             (function () {
                 const prefersDark =
@@ -273,55 +376,145 @@
                 }
             })();
 
-            var statusModal = document.getElementById("statusModal");
-            var statusForm = document.getElementById("statusForm");
-            var statusInput = document.getElementById("statusInput");
-            var steps = document.querySelectorAll(".status-step");
-            var quickBtns = document.querySelectorAll(".btn-quick");
-            var noteModal = document.getElementById("noteModal");
-            var noteModalTitle = document.getElementById("noteModalTitle");
-            var noteModalStage = document.getElementById("noteModalStage");
-            var noteModalText = document.getElementById("noteModalText");
+            var addForm = document.getElementById("dashboard-add-form");
+            var formTitle = document.getElementById("form-title");
+            var submitBtnLabel = document.getElementById("submit-btn-label");
+            var cancelEditBtn = document.getElementById("cancel-edit-btn");
+            var editingId = null;
 
-            function setActiveStatus(status) {
-                statusInput.value = status;
-                steps.forEach(function (step) {
-                    step.classList.toggle("active", step.dataset.status === status);
+            function resetAddForm() {
+                editingId = null;
+                addForm.action = "/applications";
+                addForm.method = "POST";
+                formTitle.textContent = "Add Application";
+                submitBtnLabel.textContent = "Save Application";
+                if (cancelEditBtn) cancelEditBtn.classList.remove("is-visible");
+                addForm.reset();
+                var fs = addForm.querySelector('input[name="form_source"]');
+                if (fs) fs.value = "dashboard";
+            }
+
+            document.querySelectorAll(".btn-edit-dash").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    editingId = btn.dataset.id;
+                    addForm.action = "/applications/" + editingId + "/edit";
+                    addForm.method = "POST";
+                    formTitle.textContent = "Edit Application";
+                    submitBtnLabel.textContent = "Save changes";
+                    cancelEditBtn.classList.add("is-visible");
+                    document.getElementById("company").value = decodeURIComponent(btn.dataset.company || "");
+                    document.getElementById("position").value = decodeURIComponent(btn.dataset.position || "");
+                    document.getElementById("job_link").value = decodeURIComponent(btn.dataset.jobLink || "");
+                    var d = btn.dataset.date;
+                    document.getElementById("date_applied").value = d || "";
+                    document.getElementById("status-select").value = btn.dataset.status || "applied";
+                    document.getElementById("studio-form-panel").scrollIntoView({ behavior: "smooth", block: "start" });
                 });
-                quickBtns.forEach(function (btn) {
-                    btn.classList.toggle("selected", btn.dataset.status === status);
+            });
+
+            if (cancelEditBtn) cancelEditBtn.addEventListener("click", resetAddForm);
+
+            var splitEl = document.getElementById("studio-split");
+            var expandBtn = document.getElementById("pipeline-expand-btn");
+            var minimizeBtn = document.getElementById("pipeline-minimize-btn");
+            function setPipelineExpanded(expanded) {
+                if (!splitEl) return;
+                splitEl.classList.toggle("studio-split--pipeline-expanded", expanded);
+                if (expandBtn) {
+                    expandBtn.hidden = expanded;
+                    expandBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+                }
+                if (minimizeBtn) {
+                    minimizeBtn.hidden = !expanded;
+                    minimizeBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+                }
+            }
+            if (splitEl && expandBtn && minimizeBtn) {
+                expandBtn.addEventListener("click", function () {
+                    setPipelineExpanded(true);
+                });
+                minimizeBtn.addEventListener("click", function () {
+                    setPipelineExpanded(false);
                 });
             }
+
+            document.querySelectorAll(".studio-flash__close").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    var row = btn.closest(".studio-flash");
+                    if (row) row.remove();
+                });
+            });
+
+            document.querySelectorAll(".btn-delete-dash").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    if (!confirm("Delete this application?")) return;
+                    var id = btn.dataset.id;
+                    fetch("/applications/" + id + "/delete", {
+                        method: "POST",
+                        credentials: "same-origin",
+                        headers: { Accept: "application/json" },
+                    })
+                        .then(function (r) {
+                            if (!r.ok) throw new Error("fail");
+                            return r.json();
+                        })
+                        .then(function () {
+                            var row = btn.closest(".studio-row");
+                            if (row) row.remove();
+                        })
+                        .catch(function () {
+                            window.location.reload();
+                        });
+                });
+            });
+
+            var statusModal = document.getElementById("statusModal");
+            var statusForm = document.getElementById("statusForm");
+
+            statusForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+                var fd = new FormData(statusForm);
+                fetch(statusForm.action, {
+                    method: "POST",
+                    body: fd,
+                    credentials: "same-origin",
+                    headers: { Accept: "application/json" },
+                })
+                    .then(function (r) {
+                        if (!r.ok) throw new Error("bad status");
+                        return r.json();
+                    })
+                    .then(function (data) {
+                        statusModal.classList.remove("visible");
+                        if (data && data.status) {
+                            var bid = statusForm.action.match(/applications\/(\d+)\//);
+                            if (bid) {
+                                var row = document.querySelector('.studio-row[data-app-id="' + bid[1] + '"]');
+                                if (row) {
+                                    var badge = row.querySelector("[data-status-badge]");
+                                    if (badge) {
+                                        var labels = { applied: "Applied", interview: "Interview", offer: "Offer", rejected: "Rejected", cancelled: "Cancelled" };
+                                        badge.textContent = labels[data.status] || data.status;
+                                        badge.className = "studio-badge studio-badge--" + data.status;
+                                    }
+                                }
+                            }
+                        }
+                    })
+                    .catch(function () {
+                        statusModal.classList.remove("visible");
+                        window.location.reload();
+                    });
+            });
 
             document.querySelectorAll(".btn-edit-status").forEach(function (btn) {
                 btn.addEventListener("click", function () {
                     statusForm.action = "/applications/" + btn.dataset.id + "/status";
-                    statusForm.querySelector("[name='applied_note']").value = btn.dataset.appliedNote;
-                    statusForm.querySelector("[name='interview_note']").value = btn.dataset.interviewNote;
-                    statusForm.querySelector("[name='offer_note']").value = btn.dataset.offerNote;
-                    setActiveStatus(btn.dataset.status);
+                    document.getElementById("applied_note").value = decodeURIComponent(btn.dataset.appliedNote || "").replace(/\+/g, " ");
+                    document.getElementById("interview_note").value = decodeURIComponent(btn.dataset.interviewNote || "").replace(/\+/g, " ");
+                    document.getElementById("offer_note").value = decodeURIComponent(btn.dataset.offerNote || "").replace(/\+/g, " ");
+                    document.getElementById("status-modal-select").value = btn.dataset.status || "applied";
                     statusModal.classList.add("visible");
-                });
-            });
-
-            document.querySelectorAll(".btn-view-note").forEach(function (btn) {
-                btn.addEventListener("click", function () {
-                    noteModalTitle.textContent = btn.dataset.company + " Note";
-                    noteModalStage.textContent = "Current stage: " + btn.dataset.stage;
-                    noteModalText.textContent = btn.dataset.note || "No note saved for the current stage yet.";
-                    noteModal.classList.add("visible");
-                });
-            });
-
-            steps.forEach(function (step) {
-                step.addEventListener("click", function () {
-                    setActiveStatus(step.dataset.status);
-                });
-            });
-
-            quickBtns.forEach(function (btn) {
-                btn.addEventListener("click", function () {
-                    setActiveStatus(btn.dataset.status);
                 });
             });
 
@@ -332,20 +525,6 @@
             statusModal.addEventListener("click", function (e) {
                 if (e.target === statusModal) {
                     statusModal.classList.remove("visible");
-                }
-            });
-
-            document.getElementById("noteModalClose").addEventListener("click", function () {
-                noteModal.classList.remove("visible");
-            });
-
-            document.getElementById("noteModalDone").addEventListener("click", function () {
-                noteModal.classList.remove("visible");
-            });
-
-            noteModal.addEventListener("click", function (e) {
-                if (e.target === noteModal) {
-                    noteModal.classList.remove("visible");
                 }
             });
         </script>

@@ -12,27 +12,27 @@
 }
 
 .nav-links a {
-    color: #4f46e5;
+    color: var(--color-navy);
     text-decoration: none;
     font-size: 14px;
 }
 
 .btn-add {
-    background-color: #3F72AF;
-    color: white !important;
+    background-color: var(--color-accent);
+    color: var(--color-ink) !important;
     padding: 8px 16px;
     border-radius: 8px;
 }
 
 .btn-add:hover {
-    background-color: #112D4E;
+    background-color: var(--primary-hover);
     text-decoration: none !important;
 }
 
 .empty-state {
     text-align: center;
     padding: 60px 20px;
-    color: #666;
+    color: var(--color-muted);
 }
 
 .card-grid {
@@ -42,24 +42,25 @@
 }
 
 .job-card {
-    background: rgba(255, 255, 255, 0.96);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
     border-radius: 18px;
     padding: 18px 18px 16px;
-    box-shadow: 0 18px 40px rgba(17, 45, 78, 0.12);
+    box-shadow: 0 18px 40px rgba(5, 5, 5, 0.08);
 }
 
 .job-card h3 {
-    color: #112D4E;
+    color: var(--color-navy);
     margin-bottom: 4px;
 }
 
 .job-card .position {
-    color: #3F72AF;
+    color: var(--color-muted);
     margin: 0 0 8px 0;
 }
 
 .job-card .date {
-    color: #6b7280;
+    color: var(--color-muted);
     font-size: 13px;
     margin: 8px 0;
 }
@@ -69,14 +70,14 @@
     padding: 4px 12px;
     border-radius: 12px;
     font-size: 12px;
-    color: #ffffff;
+    color: var(--color-ink);
     text-transform: capitalize;
 }
 
-.status-applied { background-color: #3F72AF; }
-.status-interview { background-color: #f59e0b; }
-.status-offer { background-color: #10b981; }
-.status-rejected { background-color: #ef4444; }
+.status-applied { background-color: rgba(171, 223, 117, 0.65); }
+.status-interview { background-color: rgba(46, 58, 94, 0.2); color: var(--color-navy); }
+.status-offer { background-color: rgba(171, 223, 117, 0.85); }
+.status-rejected { background-color: #ef4444; color: #fff; }
 
 .progress-dots {
     display: flex;
@@ -101,13 +102,13 @@
 }
 
 .dot-label.active {
-    color: #4f46e5;
-    font-weight: 600;
+    color: var(--color-navy);
+    font-weight: 400;
 }
 
 .dot-label.rejected {
     color: #ef4444;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .dot {
@@ -120,8 +121,8 @@
 }
 
 @keyframes subtle-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.25); }
-    50% { box-shadow: 0 0 6px 2px rgba(79, 70, 229, 0.15); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(171, 223, 117, 0.45); }
+    50% { box-shadow: 0 0 6px 2px rgba(171, 223, 117, 0.25); }
 }
 
 @keyframes subtle-pulse-red {
@@ -138,7 +139,7 @@
 }
 
 .dot.active {
-    background-color: #3F72AF;
+    background-color: var(--color-accent);
     opacity: 1;
     transform: translateY(-1px);
 }
@@ -179,7 +180,7 @@
 }
 
 .dot-line.active {
-    background-color: #4f46e5;
+    background-color: var(--color-navy);
 }
 
 .card-actions {
@@ -191,7 +192,7 @@
 }
 
 .card-actions a {
-    color: #4f46e5;
+    color: var(--color-navy);
     font-size: 14px;
 }
 
@@ -204,7 +205,8 @@
 }
 
 .btn-edit-status {
-    background-color: #4f46e5;
+    background-color: var(--color-navy);
+    color: var(--color-mist);
     font-size: 13px;
     padding: 6px 14px;
     width: auto;
@@ -212,19 +214,7 @@
 }
 
 .btn-edit-status:hover {
-    background-color: #4338ca;
-}
-
-.btn-view-note {
-    background-color: #3F72AF;
-    font-size: 13px;
-    padding: 6px 14px;
-    width: auto;
-    margin: 0 0 0 auto;
-}
-
-.btn-view-note:hover {
-    background-color: #112D4E;
+    background-color: rgba(46, 58, 94, 0.85);
 }
 
 .btn-delete:hover {
@@ -251,7 +241,8 @@
 }
 
 .modal {
-    background: white;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 30px;
     width: 100%;
@@ -268,14 +259,8 @@
 
 .modal-header h2 {
     font-size: 20px;
-    color: #333;
+    color: var(--text-primary);
     margin: 0;
-}
-
-.note-modal-stage {
-    margin: 6px 0 0 0;
-    font-size: 13px;
-    color: #6b7280;
 }
 
 .modal-close {
@@ -290,14 +275,14 @@
 }
 
 .modal-close:hover {
-    color: #333;
+    color: var(--text-primary);
     background: none;
 }
 
 /* Status steps in modal */
 
 .status-step {
-    border: 2px solid #e5e7eb;
+    border: 2px solid var(--border-color);
     border-radius: 10px;
     padding: 14px;
     margin-bottom: 10px;
@@ -306,12 +291,12 @@
 }
 
 .status-step:hover {
-    border-color: #a5b4fc;
+    border-color: rgba(92, 103, 132, 0.45);
 }
 
 .status-step.active {
-    border-color: #4f46e5;
-    background-color: #eef2ff;
+    border-color: var(--color-navy);
+    background-color: rgba(171, 223, 117, 0.15);
 }
 
 .step-header {
@@ -331,7 +316,7 @@
 }
 
 .status-step.active .step-radio {
-    border-color: #4f46e5;
+    border-color: var(--color-navy);
 }
 
 .status-step.active .step-radio::after {
@@ -342,18 +327,18 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: #4f46e5;
+    background-color: var(--color-navy);
 }
 
 .step-name {
     font-size: 15px;
-    font-weight: 500;
-    color: #333;
+    font-weight: 400;
+    color: var(--text-primary);
 }
 
 .status-step textarea {
     width: 100%;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 8px 10px;
     font-size: 13px;
@@ -363,7 +348,7 @@
 }
 
 .status-step textarea:focus {
-    border-color: #4f46e5;
+    border-color: var(--color-navy);
 }
 
 /* Quick action buttons */
@@ -414,8 +399,8 @@
 .btn-save {
     width: 100%;
     padding: 12px;
-    background-color: #4f46e5;
-    color: white;
+    background-color: var(--color-accent);
+    color: var(--color-ink);
     border: none;
     border-radius: 8px;
     font-size: 16px;
@@ -423,31 +408,7 @@
 }
 
 .btn-save:hover {
-    background-color: #4338ca;
-}
-
-.note-modal {
-    max-width: 420px;
-}
-
-.note-modal-body {
-    margin-bottom: 18px;
-    padding: 14px;
-    border-radius: 10px;
-    background-color: #f9fafb;
-    border: 1px solid #e5e7eb;
-}
-
-.note-modal-body p {
-    margin: 0;
-    color: #333;
-    font-size: 14px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-}
-
-.note-modal-close-btn {
-    margin-top: 0;
+    background-color: var(--primary-hover);
 }
 
 .status-setup-actions {
