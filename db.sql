@@ -21,15 +21,6 @@ CREATE TABLE applications (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Session table (required by connect-pg-simple for Vercel deployment)
-CREATE TABLE IF NOT EXISTS "session" (
-    "sid" VARCHAR NOT NULL COLLATE "default",
-    "sess" JSON NOT NULL,
-    "expire" TIMESTAMP(6) NOT NULL,
-    CONSTRAINT "session_pkey" PRIMARY KEY ("sid")
-);
-CREATE INDEX IF NOT EXISTS "IDX_session_expire" ON "session" ("expire");
-
 -- Migration: run these if the table already exists
 -- ALTER TABLE applications ADD COLUMN IF NOT EXISTS applied_note TEXT;
 -- ALTER TABLE applications ADD COLUMN IF NOT EXISTS interview_note TEXT;
