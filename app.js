@@ -61,6 +61,9 @@ app.get("/dashboard", async (req, res) => {
             totalOffers: stats.total_offers || 0,
             totalRejections: stats.total_rejections || 0,
             recentApplications: recentResult.rows,
+            addError: req.query.addError || null,
+            saved: req.query.saved === "1",
+            updated: req.query.updated === "1",
         });
     } catch (err) {
         console.error("Dashboard error:", err);
@@ -71,6 +74,9 @@ app.get("/dashboard", async (req, res) => {
             totalOffers: 0,
             totalRejections: 0,
             recentApplications: [],
+            addError: req.query.addError || null,
+            saved: req.query.saved === "1",
+            updated: req.query.updated === "1",
         });
     }
 });
