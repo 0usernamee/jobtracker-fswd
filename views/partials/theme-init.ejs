@@ -1,0 +1,22 @@
+<script>
+    (function () {
+        try {
+            function syncThemeFromStorageOrSystem() {
+                var stored = localStorage.getItem("nextstep-theme");
+                var prefersDark =
+                    window.matchMedia &&
+                    window.matchMedia("(prefers-color-scheme: dark)").matches;
+                var isDark = stored ? stored === "dark" : prefersDark;
+                document.documentElement.classList.toggle("dark", isDark);
+            }
+            syncThemeFromStorageOrSystem();
+            if (!localStorage.getItem("nextstep-theme")) {
+                window
+                    .matchMedia("(prefers-color-scheme: dark)")
+                    .addEventListener("change", function (e) {
+                        document.documentElement.classList.toggle("dark", e.matches);
+                    });
+            }
+        } catch (e) {}
+    })();
+</script>

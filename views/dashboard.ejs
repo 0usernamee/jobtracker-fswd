@@ -19,16 +19,16 @@
         <link rel="stylesheet" href="/css/applications.css" />
     </head>
     <body>
-        <div class="studio-page">
-            <header class="studio-header">
-                <div class="studio-header__inner">
-                    <div class="top-bar__brand studio-top-bar-logo">
+        <div class="dash-page">
+            <header class="dash-header">
+                <div class="dash-header__inner">
+                    <div class="top-bar__brand dash-brand">
                         <%- include('partials/brand-logo') %>
                     </div>
-                    <div class="studio-header__actions">
+                    <div class="dash-header__actions">
                         <button
                             id="theme-toggle"
-                            class="studio-theme-btn"
+                            class="theme-toggle-btn"
                             type="button"
                             aria-label="Toggle dark mode">
                             <svg
@@ -67,7 +67,7 @@
                                 <line x1="17.66" y1="6.34" x2="19.78" y2="4.22" />
                             </svg>
                         </button>
-                        <a href="/auth/logout" class="studio-logout">
+                        <a href="/auth/logout" class="dash-logout">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                                 <polyline points="16 17 21 12 16 7" />
@@ -79,53 +79,53 @@
                 </div>
             </header>
 
-            <main class="studio-main">
+            <main class="dash-main">
                 <% if (saved) { %>
-                    <div class="studio-flash" role="status">
+                    <div class="dash-flash" role="status">
                         <span>Application saved successfully.</span>
-                        <button type="button" class="studio-flash__close" aria-label="Dismiss message">&times;</button>
+                        <button type="button" class="dash-flash__close" aria-label="Dismiss message">&times;</button>
                     </div>
                 <% } %>
                 <% if (updated) { %>
-                    <div class="studio-flash" role="status">
+                    <div class="dash-flash" role="status">
                         <span>Application updated successfully.</span>
-                        <button type="button" class="studio-flash__close" aria-label="Dismiss message">&times;</button>
+                        <button type="button" class="dash-flash__close" aria-label="Dismiss message">&times;</button>
                     </div>
                 <% } %>
 
-                <div class="studio-stats-grid">
-                    <div class="studio-stat-card">
-                        <div class="studio-stat-card__label">Total Applications</div>
-                        <div class="studio-stat-card__value"><%= totalApplications || 0 %></div>
+                <div class="dash-stats-grid">
+                    <div class="dash-stat-card">
+                        <div class="dash-stat-card__label">Total Applications</div>
+                        <div class="dash-stat-card__value"><%= totalApplications || 0 %></div>
                     </div>
-                    <div class="studio-stat-card">
-                        <div class="studio-stat-card__label">Active Interviews</div>
-                        <div class="studio-stat-card__value"><%= totalInterviews || 0 %></div>
+                    <div class="dash-stat-card">
+                        <div class="dash-stat-card__label">Active Interviews</div>
+                        <div class="dash-stat-card__value"><%= totalInterviews || 0 %></div>
                     </div>
-                    <div class="studio-stat-card">
-                        <div class="studio-stat-card__label">Offers Received</div>
-                        <div class="studio-stat-card__value"><%= totalOffers || 0 %></div>
+                    <div class="dash-stat-card">
+                        <div class="dash-stat-card__label">Offers Received</div>
+                        <div class="dash-stat-card__value"><%= totalOffers || 0 %></div>
                     </div>
-                    <div class="studio-stat-card">
-                        <div class="studio-stat-card__label">Rejected</div>
-                        <div class="studio-stat-card__value"><%= totalRejections || 0 %></div>
+                    <div class="dash-stat-card">
+                        <div class="dash-stat-card__label">Rejected</div>
+                        <div class="dash-stat-card__value"><%= totalRejections || 0 %></div>
                     </div>
                 </div>
 
-                <div class="studio-split" id="studio-split">
-                    <aside class="studio-form-panel" id="studio-form-panel">
-                        <div class="studio-card studio-card--padded">
-                            <h3 class="studio-card__title" id="form-title">Add Application</h3>
+                <div class="dash-split" id="dash-split">
+                    <aside class="dash-form-panel" id="dash-form-panel">
+                        <div class="dash-card dash-card--padded">
+                            <h3 class="dash-card__title" id="form-title">Add Application</h3>
                             <% if (addError) { %>
                                 <p class="dashboard-form-error"><%= addError %></p>
                             <% } %>
-                            <form class="studio-add-form" action="/applications" method="POST" id="dashboard-add-form">
+                            <form class="dash-add-form" action="/applications" method="POST" id="dashboard-add-form">
                                 <input type="hidden" name="form_source" value="dashboard" />
 
-                                <div class="studio-field">
-                                    <label class="studio-field__label" for="company">Company</label>
-                                    <div class="studio-field__wrap">
-                                        <span class="studio-field__icon" aria-hidden="true">
+                                <div class="dash-field">
+                                    <label class="dash-field__label" for="company">Company</label>
+                                    <div class="dash-field__wrap">
+                                        <span class="dash-field__icon" aria-hidden="true">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                 <path d="M3 21h18" />
                                                 <path d="M5 21V7l8-4v18" />
@@ -137,7 +137,7 @@
                                             </svg>
                                         </span>
                                         <input
-                                            class="studio-input"
+                                            class="dash-input"
                                             id="company"
                                             type="text"
                                             name="company"
@@ -147,17 +147,17 @@
                                     </div>
                                 </div>
 
-                                <div class="studio-field">
-                                    <label class="studio-field__label" for="position">Role</label>
-                                    <div class="studio-field__wrap">
-                                        <span class="studio-field__icon" aria-hidden="true">
+                                <div class="dash-field">
+                                    <label class="dash-field__label" for="position">Role</label>
+                                    <div class="dash-field__wrap">
+                                        <span class="dash-field__icon" aria-hidden="true">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                 <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
                                                 <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                                             </svg>
                                         </span>
                                         <input
-                                            class="studio-input"
+                                            class="dash-input"
                                             id="position"
                                             type="text"
                                             name="position"
@@ -167,19 +167,19 @@
                                     </div>
                                 </div>
 
-                                <div class="studio-field">
-                                    <label class="studio-field__label" for="job_link">
+                                <div class="dash-field">
+                                    <label class="dash-field__label" for="job_link">
                                         Posting Link <span class="optional">(Optional)</span>
                                     </label>
-                                    <div class="studio-field__wrap">
-                                        <span class="studio-field__icon" aria-hidden="true">
+                                    <div class="dash-field__wrap">
+                                        <span class="dash-field__icon" aria-hidden="true">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                                                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                                             </svg>
                                         </span>
                                         <input
-                                            class="studio-input"
+                                            class="dash-input"
                                             id="job_link"
                                             type="url"
                                             name="job_link"
@@ -187,14 +187,14 @@
                                     </div>
                                 </div>
 
-                                <div class="studio-field">
-                                    <label class="studio-field__label" for="date_applied">Date applied <span class="optional">(Optional)</span></label>
-                                    <input class="studio-input" id="date_applied" type="date" name="date_applied" />
+                                <div class="dash-field">
+                                    <label class="dash-field__label" for="date_applied">Date applied <span class="optional">(Optional)</span></label>
+                                    <input class="dash-input" id="date_applied" type="date" name="date_applied" />
                                 </div>
 
-                                <div class="studio-field">
-                                    <label class="studio-field__label" for="status-select">Status</label>
-                                    <select class="studio-select" id="status-select" name="status">
+                                <div class="dash-field">
+                                    <label class="dash-field__label" for="status-select">Status</label>
+                                    <select class="dash-select" id="status-select" name="status">
                                         <option value="applied">Applied</option>
                                         <option value="interview">Interview</option>
                                         <option value="offer">Offer</option>
@@ -203,69 +203,85 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="studio-btn-save" id="form-submit-btn">
+                                <button type="submit" class="dash-btn-primary" id="form-submit-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                                         <line x1="12" y1="5" x2="12" y2="19" />
                                         <line x1="5" y1="12" x2="19" y2="12" />
                                     </svg>
                                     <span id="submit-btn-label">Save Application</span>
                                 </button>
-                                <button type="button" class="studio-form-cancel" id="cancel-edit-btn" aria-label="Cancel editing">Cancel editing</button>
+                                <button type="button" class="dash-form-cancel" id="cancel-edit-btn" aria-label="Cancel editing">Cancel editing</button>
                             </form>
                         </div>
                     </aside>
 
-                    <section class="studio-pipeline">
-                        <div class="studio-card">
-                            <div class="studio-pipeline-head">
+                    <section class="dash-list">
+                        <div class="dash-card">
+                            <div class="dash-list-head">
                                 <h3>View applications</h3>
-                                <div class="studio-pipeline-head__actions">
+                                <div class="dash-list-head__actions">
                                     <button
                                         type="button"
-                                        class="studio-pipeline-toggle-btn"
+                                        class="dash-expand-btn"
                                         id="pipeline-expand-btn"
                                         aria-expanded="false"
-                                        aria-controls="studio-split">
+                                        aria-controls="dash-split">
                                         Expand
                                     </button>
                                     <button
                                         type="button"
-                                        class="studio-pipeline-toggle-btn studio-pipeline-toggle-btn--minimize"
+                                        class="dash-expand-btn dash-expand-btn--minimize"
                                         id="pipeline-minimize-btn"
                                         hidden
                                         aria-expanded="false"
-                                        aria-controls="studio-split">
+                                        aria-controls="dash-split">
                                         Minimize
                                     </button>
                                 </div>
                             </div>
 
                             <% if (!recentApplications || recentApplications.length === 0) { %>
-                                <p class="studio-pipeline-empty">No applications yet. Start by adding your first one.</p>
+                                <p class="dash-list-empty">No applications yet. Start by adding your first one.</p>
                             <% } else { %>
                                 <% recentApplications.forEach(app => { %>
                                     <% var st = app.status || 'applied'; %>
                                     <% var statusWords = { applied: 'Applied', interview: 'Interview', offer: 'Offer', rejected: 'Rejected', cancelled: 'Cancelled' }; %>
                                     <% var statusLabel = statusWords[st] || st; %>
-                                    <% var badgeClass = 'studio-badge--' + (['applied','interview','offer','rejected','cancelled'].includes(st) ? st : 'applied'); %>
+                                    <% var badgeClass = 'dash-badge--' + (['applied','interview','offer','rejected','cancelled'].includes(st) ? st : 'applied'); %>
                                     <% var dateStr = app.date_applied ? new Date(app.date_applied).toISOString().slice(0, 10) : ''; %>
-                                    <div class="studio-row" data-app-id="<%= app.id %>">
-                                        <div class="studio-row__mainline">
-                                            <div class="studio-row__left">
-                                                <div class="studio-row__avatar" aria-hidden="true"><%= (app.company || '?').charAt(0).toUpperCase() %></div>
+                                    <% var avatarLetter = (app.company || '?').charAt(0).toUpperCase(); %>
+                                    <% var faviconUrl = ''; %>
+                                    <% if (app.job_link) { try { var _jl = String(app.job_link).trim(); if (_jl) { if (!/^https?:\/\//i.test(_jl)) _jl = 'https://' + _jl; var _host = new URL(_jl).hostname.replace(/^www\./i, ''); if (_host) faviconUrl = 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(_host) + '&sz=64'; } } catch (e) {} } %>
+                                    <div class="dash-row" data-app-id="<%= app.id %>">
+                                        <div class="dash-row__mainline">
+                                            <div class="dash-row__left">
+                                                <div class="dash-row__avatar" aria-hidden="true">
+                                                    <% if (faviconUrl) { %>
+                                                        <img
+                                                            class="dash-row__avatar-img"
+                                                            src="<%= faviconUrl %>"
+                                                            alt=""
+                                                            width="48"
+                                                            height="48"
+                                                            loading="lazy"
+                                                            decoding="async"
+                                                            referrerpolicy="no-referrer" />
+                                                    <% } %>
+                                                    <span class="dash-row__avatar-letter"<% if (faviconUrl) { %> hidden<% } %>><%= avatarLetter %></span>
+                                                </div>
                                                 <div>
-                                                    <div class="studio-row__title"><%= app.company %></div>
-                                                    <div class="studio-row__subtitle"><%= app.position %></div>
+                                                    <div class="dash-row__title"><%= app.company %></div>
+                                                    <div class="dash-row__subtitle"><%= app.position %></div>
                                                 </div>
                                             </div>
-                                            <div class="studio-row__right">
-                                                <span class="studio-badge <%= badgeClass %>" data-status-badge="true"><%= statusLabel %></span>
-                                                <span class="studio-row__date">
+                                            <div class="dash-row__right">
+                                                <span class="dash-badge <%= badgeClass %>" data-status-badge="true"><%= statusLabel %></span>
+                                                <span class="dash-row__date">
                                                     <%= app.date_applied ? new Date(app.date_applied).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—' %>
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="studio-row__actions">
+                                        <div class="dash-row__actions">
                                             <% if (app.job_link) { %>
                                                 <a href="<%= app.job_link %>" target="_blank" rel="noopener">Link</a>
                                             <% } %>
@@ -301,17 +317,17 @@
             </main>
         </div>
 
-        <div class="studio-modal-overlay" id="statusModal">
-            <div class="studio-modal" role="dialog" aria-labelledby="status-modal-title">
-                <div class="studio-modal__head">
+        <div class="dash-modal-overlay" id="statusModal">
+            <div class="dash-modal" role="dialog" aria-labelledby="status-modal-title">
+                <div class="dash-modal__head">
                     <h2 id="status-modal-title">Update status</h2>
-                    <button type="button" class="studio-modal__close" id="modalClose" aria-label="Close">&times;</button>
+                    <button type="button" class="dash-modal__close" id="modalClose" aria-label="Close">&times;</button>
                 </div>
                 <form id="statusForm" method="POST">
                     <input type="hidden" name="form_source" value="dashboard" />
-                    <div class="studio-field">
-                        <label class="studio-field__label" for="status-modal-select">Status</label>
-                        <select class="studio-select" id="status-modal-select" name="status">
+                    <div class="dash-field">
+                        <label class="dash-field__label" for="status-modal-select">Status</label>
+                        <select class="dash-select" id="status-modal-select" name="status">
                             <option value="applied">Applied</option>
                             <option value="interview">Interview</option>
                             <option value="offer">Offer</option>
@@ -319,20 +335,20 @@
                             <option value="cancelled">Cancelled</option>
                         </select>
                     </div>
-                    <p class="studio-modal__notes-label">Notes by stage</p>
-                    <div class="studio-field">
-                        <label class="studio-field__label" for="applied_note">Applied</label>
-                        <textarea class="studio-input" id="applied_note" name="applied_note" rows="2" placeholder="Note for applied stage…"></textarea>
+                    <p class="dash-modal__notes-label">Notes by stage</p>
+                    <div class="dash-field">
+                        <label class="dash-field__label" for="applied_note">Applied</label>
+                        <textarea class="dash-input" id="applied_note" name="applied_note" rows="2" placeholder="Note for applied stage…"></textarea>
                     </div>
-                    <div class="studio-field">
-                        <label class="studio-field__label" for="interview_note">Interview</label>
-                        <textarea class="studio-input" id="interview_note" name="interview_note" rows="2" placeholder="Note for interview stage…"></textarea>
+                    <div class="dash-field">
+                        <label class="dash-field__label" for="interview_note">Interview</label>
+                        <textarea class="dash-input" id="interview_note" name="interview_note" rows="2" placeholder="Note for interview stage…"></textarea>
                     </div>
-                    <div class="studio-field">
-                        <label class="studio-field__label" for="offer_note">Offer</label>
-                        <textarea class="studio-input" id="offer_note" name="offer_note" rows="2" placeholder="Note for offer stage…"></textarea>
+                    <div class="dash-field">
+                        <label class="dash-field__label" for="offer_note">Offer</label>
+                        <textarea class="dash-input" id="offer_note" name="offer_note" rows="2" placeholder="Note for offer stage…"></textarea>
                     </div>
-                    <button type="submit" class="studio-btn-save" id="status-save-btn">Save</button>
+                    <button type="submit" class="dash-btn-primary" id="status-save-btn">Save</button>
                 </form>
             </div>
         </div>
@@ -408,18 +424,18 @@
                     var d = btn.dataset.date;
                     document.getElementById("date_applied").value = d || "";
                     document.getElementById("status-select").value = btn.dataset.status || "applied";
-                    document.getElementById("studio-form-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+                    document.getElementById("dash-form-panel").scrollIntoView({ behavior: "smooth", block: "start" });
                 });
             });
 
             if (cancelEditBtn) cancelEditBtn.addEventListener("click", resetAddForm);
 
-            var splitEl = document.getElementById("studio-split");
+            var splitEl = document.getElementById("dash-split");
             var expandBtn = document.getElementById("pipeline-expand-btn");
             var minimizeBtn = document.getElementById("pipeline-minimize-btn");
             function setPipelineExpanded(expanded) {
                 if (!splitEl) return;
-                splitEl.classList.toggle("studio-split--pipeline-expanded", expanded);
+                splitEl.classList.toggle("dash-split--list-expanded", expanded);
                 if (expandBtn) {
                     expandBtn.hidden = expanded;
                     expandBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
@@ -438,10 +454,18 @@
                 });
             }
 
-            document.querySelectorAll(".studio-flash__close").forEach(function (btn) {
+            document.querySelectorAll(".dash-flash__close").forEach(function (btn) {
                 btn.addEventListener("click", function () {
-                    var row = btn.closest(".studio-flash");
+                    var row = btn.closest(".dash-flash");
                     if (row) row.remove();
+                });
+            });
+
+            document.querySelectorAll(".dash-row__avatar-img").forEach(function (img) {
+                img.addEventListener("error", function () {
+                    img.style.display = "none";
+                    var letter = img.parentElement && img.parentElement.querySelector(".dash-row__avatar-letter");
+                    if (letter) letter.removeAttribute("hidden");
                 });
             });
 
@@ -459,7 +483,7 @@
                             return r.json();
                         })
                         .then(function () {
-                            var row = btn.closest(".studio-row");
+                            var row = btn.closest(".dash-row");
                             if (row) row.remove();
                         })
                         .catch(function () {
@@ -489,13 +513,13 @@
                         if (data && data.status) {
                             var bid = statusForm.action.match(/applications\/(\d+)\//);
                             if (bid) {
-                                var row = document.querySelector('.studio-row[data-app-id="' + bid[1] + '"]');
+                                var row = document.querySelector('.dash-row[data-app-id="' + bid[1] + '"]');
                                 if (row) {
                                     var badge = row.querySelector("[data-status-badge]");
                                     if (badge) {
                                         var labels = { applied: "Applied", interview: "Interview", offer: "Offer", rejected: "Rejected", cancelled: "Cancelled" };
                                         badge.textContent = labels[data.status] || data.status;
-                                        badge.className = "studio-badge studio-badge--" + data.status;
+                                        badge.className = "dash-badge dash-badge--" + data.status;
                                     }
                                 }
                             }
