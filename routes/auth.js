@@ -44,12 +44,10 @@ router.get("/login", (req, res) => {
     res.render("login", { error: null });
 });
 
-// POST login
 router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, remember } = req.body;
 
     try {
-        // Check if user exists
         const result = await pool.query(
             "SELECT * FROM users WHERE email = $1",
             [email],
@@ -60,15 +58,18 @@ router.post("/login", async (req, res) => {
         }
 
         const user = result.rows[0];
-
-        // Compare password with bcrypt
         const match = await bcrypt.compare(password, user.password);
 
         if (!match) {
             return res.render("login", { error: "Invalid email or password" });
         }
 
-        // Create session
+        if (remember) {
+            req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
+        } else {
+            req.session.cookie.expires = false;
+        }
+
         req.session.userId = user.id;
         req.session.username = user.username;
 
