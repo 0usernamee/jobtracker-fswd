@@ -3,8 +3,10 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const pool = require("../config/db");
 
-// GET register page
 router.get("/register", (req, res) => {
+    if (req.session.userId) {
+        return res.redirect("/dashboard");
+    }
     res.render("register", { error: null });
 });
 
@@ -39,8 +41,10 @@ router.post("/register", async (req, res) => {
     }
 });
 
-// GET login page
 router.get("/login", (req, res) => {
+    if (req.session.userId) {
+        return res.redirect("/dashboard");
+    }
     res.render("login", { error: null });
 });
 
