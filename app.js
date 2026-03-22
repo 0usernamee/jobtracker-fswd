@@ -25,17 +25,17 @@ app.use(
     }),
 );
 
-// Routes
+const isAuthenticated = require("./middleware/auth");
+
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 
 const applicationRoutes = require("./routes/applications");
-app.use("/applications", applicationRoutes);
+app.use("/applications", isAuthenticated, applicationRoutes);
 
-app.get("/dashboard", async (req, res) => {
+app.get("/dashboard", isAuthenticated, async (req, res) => {
     try {
         const userId = req.session.userId;
-        console.log("Dashboard - userId:", userId, "username:", req.session.username);
 
         const statsResult = await pool.query(
             `SELECT
@@ -92,9 +92,11 @@ app.get("/demo", (req, res) => {
     res.render("applications", { applications: demoApplications, username: "DemoUser" });
 });
 
-// Test route
 app.get("/", (req, res) => {
-    res.send("NextStep is running!");
+    if (req.session.userId) {
+        return res.redirect("/dashboard");
+    }
+    res.redirect("/auth/login");
 });
 
 // Start server
