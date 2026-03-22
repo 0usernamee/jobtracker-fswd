@@ -1,26 +1,26 @@
 const express = require("express");
 const session = require("express-session");
+const pgSession = require("connect-pg-simple")(session);
 const path = require("path");
 require("dotenv").config();
 const pool = require("./config/db");
 
 const app = express();
 
-// Set EJS as templating engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// Session setup
 app.use(
     session({
+        store: new pgSession({ pool, tableName: "session" }),
         secret: process.env.SESSION_SECRET || "supersecretkey",
         resave: false,
         saveUninitialized: false,
+        cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
     }),
 );
 
@@ -34,7 +34,6 @@ app.use("/applications", applicationRoutes);
 app.get("/dashboard", async (req, res) => {
     try {
         const userId = req.session.userId;
-        console.log("Dashboard - userId:", userId, "username:", req.session.username);
 
         const statsResult = await pool.query(
             `SELECT
@@ -90,7 +89,10 @@ app.get("/", (req, res) => {
     res.send("NextStep is running!");
 });
 
-// Start server
-app.listen(3000, () => {
-    console.log("Server running on http://localhost:3000");
-});
+if (require.main === module) {
+    app.listen(3000, () => {
+        console.log("Server running on http://localhost:3000");
+    });
+}
+
+module.exports = app;
