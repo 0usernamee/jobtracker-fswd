@@ -1,14 +1,16 @@
 Start Instructions: 
 
-Create an .env file and enter the following:
+Clone this git repo.
+Create a .env file in the root folder and enter the following:
 SESSION_SECRET=dev_session_secret_change_this
 DATABASE_URL=postgresql://postgres.gsipwllnfjvxjppwxquu:COMP-4170-0@aws-1-us-east-2.pooler.supabase.com:5432/postgres
 
-Next run the npm i command in a zsh terminal, and the app can be started with npm run dev.
+Next run the npm i command in your terminal, and the app can be started with npm run dev.
 
 If you dont want to create an accout you can use this account for testing:
 Username: 123@test.ca
 Password: 123
+
 
 Diego's Contrabutions: edit status, questionare(status set), view notes, all buttons added to the dashboard cards, Write Express route to update status (POST /applications/:id/status), Connect dots to actual DB status values, Animate dots with JavaScript
 
